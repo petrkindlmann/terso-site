@@ -3,23 +3,24 @@
 import { useState, useEffect, useRef } from "react";
 
 const LINES = [
-  { t: "$ terso capture \"switched auth from Firebase to Supabase — row-level security was the dealbreaker\"", c: "cmd", d: 0 },
-  { t: "", c: "x", d: 500 },
-  { t: "\u25C8 scanning for secrets...", c: "dim", d: 800 },
-  { t: "\u2713 clean -- no secrets detected", c: "ok", d: 1300 },
-  { t: "\u25C8 classifying fragment...", c: "dim", d: 1600 },
-  { t: "  kind: decision  scope: project  confidence: 0.94", c: "stat", d: 2100 },
-  { t: "\u2713 captured -- promoted to project context", c: "ok", d: 2600 },
+  { t: "$ terso init", c: "cmd", d: 0 },
+  { t: "", c: "x", d: 400 },
+  { t: "Detected project: \"my-app\" (from package.json)", c: "dim", d: 600 },
+  { t: "✓ Terso initialized.", c: "ok", d: 1000 },
+  { t: "  AGENTS.md:  scaffolded at project root", c: "stat", d: 1300 },
+  { t: "", c: "x", d: 1700 },
+  { t: "$ vim AGENTS.md   # add your project conventions", c: "cmd", d: 2000 },
+  { t: "$ terso emit", c: "cmd", d: 2700 },
   { t: "", c: "x", d: 3000 },
-  { t: "$ terso sync", c: "cmd", d: 3400 },
-  { t: "", c: "x", d: 3700 },
-  { t: "\u25C8 syncing project omnus...", c: "dim", d: 3900 },
-  { t: "  wrote .terso/generated/ARCHITECTURE.md", c: "file", d: 4300 },
-  { t: "  wrote .terso/generated/DECISIONS.md", c: "file", d: 4600 },
-  { t: "  wrote .terso/generated/DEBUG_LOG.md", c: "file", d: 4900 },
-  { t: "  wrote .terso/generated/SHARED_OPS.md", c: "file", d: 5200 },
-  { t: "", c: "x", d: 5500 },
-  { t: "done -- 4 files written", c: "ok", d: 5700 },
+  { t: "  create   CLAUDE.md", c: "file", d: 3300 },
+  { t: "  create   .cursorrules", c: "file", d: 3600 },
+  { t: "  create   .github/copilot-instructions.md", c: "file", d: 3900 },
+  { t: "", c: "x", d: 4200 },
+  { t: "✓ Emitted 3 file(s) from AGENTS.md (0 unchanged).", c: "ok", d: 4400 },
+  { t: "", c: "x", d: 4800 },
+  { t: "$ terso emit --check    # CI gate against drift", c: "cmd", d: 5100 },
+  { t: "", c: "x", d: 5400 },
+  { t: "✓ All 3 target(s) up to date.", c: "ok", d: 5700 },
 ];
 
 const COLORS: Record<string, string> = {
@@ -76,7 +77,7 @@ export function Terminal() {
     <div
       ref={containerRef}
       role="img"
-      aria-label="Animated terminal showing terso capture and sync commands writing context files for AI agents"
+      aria-label="Animated terminal showing terso init scaffolding AGENTS.md and terso emit compiling it into CLAUDE.md, .cursorrules, and copilot-instructions.md"
       className="bg-[#0a0a0d] rounded-xl p-3.5 sm:px-[22px] sm:py-[18px] font-mono text-[11.5px] sm:text-[13px] leading-[1.7] max-h-[380px] sm:max-h-[440px] overflow-hidden overflow-x-auto touch-pan-x border border-[#222228]"
     >
       <div className="flex gap-1.5 mb-2 sm:mb-3">
@@ -97,12 +98,12 @@ export function Terminal() {
             fontWeight: line.c === "cmd" ? 600 : 400,
           }}
         >
-          {line.t || "\u00A0"}
+          {line.t || " "}
         </div>
       ))}
       {started && visible.length < LINES.length && (
         <span className="text-[#8a8a96] animate-blink motion-reduce:animate-none">
-          {"\u258C"}
+          {"▌"}
         </span>
       )}
     </div>

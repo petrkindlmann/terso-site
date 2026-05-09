@@ -87,7 +87,7 @@ export default function DocsSidebar({ groups }: { groups: NavGroup[] }) {
 
         <div className="mt-8 pt-4 border-t border-[#222228] px-3">
           <a
-            href="https://github.com/petrkindlmann/terso"
+            href="https://github.com/petrkindlmann/terso-cli"
             target="_blank"
             rel="noopener"
             className="text-xs text-[#55555e] hover:text-[#8a8a96] no-underline transition-colors"

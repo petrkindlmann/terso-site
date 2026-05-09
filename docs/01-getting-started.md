@@ -1,17 +1,17 @@
 # Getting Started
 
-Terso is a local context compiler for coding agents. It captures your development knowledge and syncs structured Markdown into your project repos so AI agents like Cursor and Claude Code can read it naturally.
+Terso is a CLI that keeps your AI coding agents on the same page as you. The fastest path is offline: write project rules in `AGENTS.md` and let `terso emit` compile them into the config files each agent expects.
 
 ## Install
 
 ```bash
-npm install -g terso
+npm install -g terso-cli
 ```
 
 Or use without installing:
 
 ```bash
-npx terso sync
+npx terso-cli emit
 ```
 
 ## Quick start
@@ -23,31 +23,34 @@ cd ~/projects/my-app
 terso init
 ```
 
-This creates a `.terso/` directory with template files and a `config.json`.
+This creates a `.terso/` directory and scaffolds an `AGENTS.md` at the project root if you don't already have one.
 
-### 2. Capture something
+### 2. Edit AGENTS.md
 
-```bash
-terso capture "switched from Clerk to Supabase Auth for unified data layer"
-```
+Write your project rules once — conventions, commands, "don'ts". This is the single source of truth.
 
-### 3. Sync context
+### 3. Compile to per-agent config files
 
 ```bash
-terso sync
+terso emit
 ```
 
-This writes structured Markdown files to `.terso/generated/`:
+Output:
 
 ```
-.terso/generated/
-  CURRENT_CONTEXT.md     -- project summary, stack, recent changes
-  RECENT_DECISIONS.md    -- last 7 days of architecture decisions
-  SHARED_OPS.md          -- relevant deploy recipes, code standards
-  KNOWN_RISKS.md         -- active issues and incidents
-  context.json           -- machine-readable metadata
+  create   CLAUDE.md
+  create   .cursorrules
+  create   .github/copilot-instructions.md
+
+Emitted 3 file(s) from AGENTS.md (0 unchanged).
 ```
 
-### 4. Your AI agent reads it
+Each emitted file starts with a marker comment so re-running `emit` is safe and won't clobber files you maintain by hand.
 
-Open Cursor or Claude Code. They automatically read the `.terso/generated/` files and know your project context. No APIs, no plugins, no MCP servers.
+### 4. Your AI agents read it
+
+Cursor reads `.cursorrules`. Claude Code reads `CLAUDE.md`. Copilot reads `.github/copilot-instructions.md`. They all get the same instructions, compiled from one source.
+
+## Going further
+
+Want richer project memory — captured decisions, cross-project search, shared ops? Connect to [Omnus](https://omnus.dev) and use `terso sync` / `capture` / `search`. See [Standalone vs Connected](./05-standalone-vs-connected.md).

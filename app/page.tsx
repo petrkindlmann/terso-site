@@ -7,33 +7,31 @@ import { AnimatedPipeline } from "../components/landing/AnimatedPipeline";
 // -- Pre-computed code blocks (runs once at build time) --
 
 const CAPTURE_CODE = [
-  { c: "#d6d3d1", t: "$ terso capture \\" },
-  { c: "#86efac", t: '  "switched auth to Supabase --' },
-  { c: "#86efac", t: '   row-level security was the dealbreaker"' },
+  { c: "#d6d3d1", t: "$ terso emit" },
   { c: "#57534e", t: "" },
-  { c: "#4ade80", t: "\u2713 captured" },
-  { c: "#93c5fd", t: "  kind: decision  scope: project" },
-  { c: "#93c5fd", t: "  confidence: 0.94  class: promote_now" },
+  { c: "#4ade80", t: "  create   CLAUDE.md" },
+  { c: "#4ade80", t: "  create   .cursorrules" },
+  { c: "#4ade80", t: "  create   .github/copilot-instructions.md" },
+  { c: "#57534e", t: "" },
+  { c: "#86efac", t: "Emitted 3 file(s) from AGENTS.md (0 unchanged)." },
 ];
 
 const SYNC_CODE = [
-  { c: "#d6d3d1", t: "$ terso sync" },
+  { c: "#d6d3d1", t: "$ vim AGENTS.md   # edit your project rules" },
+  { c: "#d6d3d1", t: "$ terso emit --check    # CI-safe verification" },
   { c: "#57534e", t: "" },
-  { c: "#57534e", t: "\u25C8 syncing project omnus..." },
-  { c: "#818cf8", t: "  wrote .terso/generated/ARCHITECTURE.md" },
-  { c: "#818cf8", t: "  wrote .terso/generated/DECISIONS.md" },
-  { c: "#818cf8", t: "  wrote .terso/generated/DEBUG_LOG.md" },
-  { c: "#818cf8", t: "  wrote .terso/generated/SHARED_OPS.md" },
+  { c: "#818cf8", t: "  ok       CLAUDE.md" },
+  { c: "#818cf8", t: "  ok       .cursorrules" },
+  { c: "#818cf8", t: "  ok       .github/copilot-instructions.md" },
   { c: "#57534e", t: "" },
-  { c: "#4ade80", t: "done -- 4 files written" },
+  { c: "#4ade80", t: "All 3 target(s) up to date." },
 ];
 
 const AGENT_FILES = [
-  { name: "ARCHITECTURE.md", desc: "Current stack, infra, deployment" },
-  { name: "DECISIONS.md", desc: "Why you chose X over Y" },
-  { name: "DEBUG_LOG.md", desc: "Bugs fixed, root causes found" },
-  { name: "SHARED_OPS.md", desc: "Cross-project standards and recipes" },
-  { name: "CHANGELOG.md", desc: "What changed, when, why" },
+  { name: "AGENTS.md", desc: "Single source \u2014 you edit this" },
+  { name: "CLAUDE.md", desc: "Read by Claude Code" },
+  { name: ".cursorrules", desc: "Read by Cursor" },
+  { name: ".github/copilot-instructions.md", desc: "Read by GitHub Copilot" },
 ];
 
 const SURFACES = [
@@ -58,14 +56,11 @@ const TREE_LINES = [
   { t: "your-project/", indent: 0, gen: false },
   { t: "src/", indent: 1, gen: false },
   { t: "package.json", indent: 1, gen: false },
-  { t: "CLAUDE.md", indent: 1, gen: false, label: "hand-maintained" },
-  { t: ".terso/", indent: 1, gen: false },
-  { t: "config.json", indent: 2, gen: false, label: "hand-maintained" },
-  { t: "generated/", indent: 2, gen: true },
-  { t: "ARCHITECTURE.md", indent: 3, gen: true, label: "auto-generated" },
-  { t: "DECISIONS.md", indent: 3, gen: true, label: "auto-generated" },
-  { t: "DEBUG_LOG.md", indent: 3, gen: true, label: "auto-generated" },
-  { t: "SHARED_OPS.md", indent: 3, gen: true, label: "auto-generated" },
+  { t: "AGENTS.md", indent: 1, gen: false, label: "single source" },
+  { t: "CLAUDE.md", indent: 1, gen: true, label: "compiled" },
+  { t: ".cursorrules", indent: 1, gen: true, label: "compiled" },
+  { t: ".github/", indent: 1, gen: false },
+  { t: "copilot-instructions.md", indent: 2, gen: true, label: "compiled" },
 ];
 
 const GRID_CARDS = [
@@ -113,13 +108,13 @@ export default function Home() {
             className="text-[30px] sm:text-[40px] lg:text-5xl font-bold tracking-[-0.035em] leading-[1.18] sm:leading-[1.12] text-[#e8e6e3] opacity-0 animate-fade-up"
             style={{ animationDelay: "0.2s" }}
           >
-            Your AI agents finally have a memory
+            One AGENTS.md. Every coding agent.
           </h1>
           <p
-            className="text-base text-[#8a8a96] leading-relaxed mt-3.5 sm:mt-[18px] max-w-[420px] mx-auto opacity-0 animate-fade-up"
+            className="text-base text-[#8a8a96] leading-relaxed mt-3.5 sm:mt-[18px] max-w-[460px] mx-auto opacity-0 animate-fade-up"
             style={{ animationDelay: "0.35s" }}
           >
-            Capture decisions and architecture notes from anywhere. Terso compiles them into structured Markdown that Cursor and Claude Code read natively.
+            Stop maintaining the same project rules in <code className="bg-[#1a1a1f] px-1 py-px rounded text-[0.9em] font-mono">.cursorrules</code>, <code className="bg-[#1a1a1f] px-1 py-px rounded text-[0.9em] font-mono">CLAUDE.md</code>, and <code className="bg-[#1a1a1f] px-1 py-px rounded text-[0.9em] font-mono">copilot-instructions.md</code>. Write them once in <code className="bg-[#1a1a1f] px-1 py-px rounded text-[0.9em] font-mono">AGENTS.md</code> — terso compiles the rest.
           </p>
           <div
             className="flex gap-2.5 justify-center mt-6 sm:mt-7 flex-wrap opacity-0 animate-fade-up"
@@ -181,7 +176,7 @@ export default function Home() {
           <Reveal>
             <p className="text-[13px] font-semibold text-indigo-400 mb-2.5">How it works</p>
             <h2 className="text-[22px] sm:text-[28px] font-bold tracking-[-0.03em]">
-              Capture once. Agents remember forever.
+              Edit one file. Compile the rest.
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 mt-6 sm:mt-9">
@@ -213,7 +208,7 @@ export default function Home() {
             </Reveal>
             <Reveal delay={120}>
               <p className="text-[11px] font-semibold text-[#55555e] tracking-[0.06em] uppercase mb-2">
-                Your agent reads this
+                Your agents read these
               </p>
               <div className="bg-[#141418] rounded-xl p-3.5 sm:p-[18px] border border-[#222228]">
                 {AGENT_FILES.map((file, i) => (
@@ -293,7 +288,7 @@ export default function Home() {
                   Files, not APIs.
                 </h3>
                 <p className="text-base text-[#8a8a96] leading-[1.65]">
-                  No MCP servers, no authentication complexity, no API calls at runtime. Terso writes Markdown files into <Cd>.terso/generated/</Cd> in each project repo. Any file-aware agent reads them naturally. Hand-maintained docs stay separate from generated context.
+                  No MCP servers to install, no auth to wire up, no runtime API calls. Terso compiles your <Cd>AGENTS.md</Cd> into the native config files each agent already reads. Cursor reads <Cd>.cursorrules</Cd>. Claude Code reads <Cd>CLAUDE.md</Cd>. Copilot reads <Cd>.github/copilot-instructions.md</Cd>. Same instructions, three places, one source.
                 </p>
               </div>
               <div className="bg-[#141418] rounded-xl p-3.5 sm:p-5 border border-[#222228]">
@@ -340,10 +335,10 @@ export default function Home() {
         <section className="max-w-[460px] mx-auto px-5 sm:px-6 pt-10 sm:pt-14 pb-20 sm:pb-[100px] text-center">
           <Reveal>
             <h2 className="text-[22px] sm:text-[28px] font-bold tracking-[-0.025em] mb-2.5">
-              Capture once, use everywhere.
+              Write once. Every agent stays in sync.
             </h2>
             <p className="text-base text-[#8a8a96] mb-6">
-              Open source. Free while in beta.
+              Open source. MIT licensed. Works offline.
             </p>
             <div className="flex gap-2.5 justify-center flex-wrap">
               <CopyButton text="npm i -g terso-cli" />
