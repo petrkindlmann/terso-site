@@ -36,7 +36,13 @@ export function NavBar() {
             Docs
           </a>
           <a
-            href="https://github.com/petrkindlmann/terso"
+            href="/blog"
+            className="text-[13px] font-medium text-[#55555e] no-underline p-2 hover:text-[#8a8a96] transition-colors"
+          >
+            Blog
+          </a>
+          <a
+            href="https://github.com/petrkindlmann/terso-cli"
             target="_blank"
             rel="noopener"
             className="text-[13px] font-medium text-[#55555e] no-underline p-2 hover:text-[#8a8a96] transition-colors"

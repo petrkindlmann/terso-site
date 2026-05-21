@@ -383,6 +383,12 @@ export default function Home() {
               Docs
             </a>
             <a
+              href="/blog"
+              className="text-[#55555e] no-underline text-[13px] py-2 px-1 hover:text-[#8a8a96] transition-colors min-h-[44px] flex items-center"
+            >
+              Blog
+            </a>
+            <a
               href="https://omnus.dev"
               target="_blank"
               rel="noopener"
