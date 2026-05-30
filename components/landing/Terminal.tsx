@@ -18,9 +18,16 @@ const LINES = [
   { t: "", c: "x", d: 4200 },
   { t: "✓ Emitted 3 file(s) from AGENTS.md (0 unchanged).", c: "ok", d: 4400 },
   { t: "", c: "x", d: 4800 },
-  { t: "$ terso emit --check    # CI gate against drift", c: "cmd", d: 5100 },
-  { t: "", c: "x", d: 5400 },
-  { t: "✓ All 3 target(s) up to date.", c: "ok", d: 5700 },
+  { t: "# a teammate hand-edits .cursorrules…", c: "dim", d: 5100 },
+  { t: "$ terso emit --check    # CI gate against drift", c: "cmd", d: 5500 },
+  { t: "", c: "x", d: 5800 },
+  { t: "  drift    .cursorrules", c: "drift", d: 6100 },
+  { t: "1 file(s) out of date. Run `terso emit`.", c: "drift", d: 6500 },
+  { t: "✗ exit 1 — CI gate blocks the merge", c: "drift", d: 6900 },
+  { t: "", c: "x", d: 7300 },
+  { t: "$ terso emit && terso emit --check    # re-sync from source", c: "cmd", d: 7600 },
+  { t: "", c: "x", d: 7900 },
+  { t: "✓ All 3 target(s) up to date.  exit 0", c: "ok", d: 8200 },
 ];
 
 const COLORS: Record<string, string> = {
@@ -29,6 +36,7 @@ const COLORS: Record<string, string> = {
   file: "#818cf8",
   stat: "#93c5fd",
   dim: "#57534e",
+  drift: "#f87171",
   x: "transparent",
 };
 
@@ -77,7 +85,7 @@ export function Terminal() {
     <div
       ref={containerRef}
       role="img"
-      aria-label="Animated terminal showing terso init scaffolding AGENTS.md and terso emit compiling it into CLAUDE.md, .cursorrules, and copilot-instructions.md"
+      aria-label="Animated terminal: terso init scaffolds AGENTS.md, terso emit compiles it into CLAUDE.md, .cursorrules, and copilot-instructions.md, then terso emit --check catches a hand-edited file as drift and fails CI until it is re-synced"
       className="bg-[#0a0a0d] rounded-xl p-3.5 sm:px-[22px] sm:py-[18px] font-mono text-[11.5px] sm:text-[13px] leading-[1.7] max-h-[380px] sm:max-h-[440px] overflow-hidden overflow-x-auto touch-pan-x border border-[#222228]"
     >
       <div className="flex gap-1.5 mb-2 sm:mb-3">
